@@ -26,7 +26,6 @@ function TasksScreen({ navigation }) {
           >
             <Ionicons name='ios-add' color='#fff' size={70} />
           </TouchableOpacity>
-        
         </View>
         <BottomNav navigation={navigation}/>
       </View>

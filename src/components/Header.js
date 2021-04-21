@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 
 function Header(props) {
   const { title } = props;
-  const listItems = useSelector((state) => state.TasksR.itemList);
+  const listItems = useSelector((state) => state.TasksR.tasksList);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
       {props.title == 'Your tasks' ? (
-        <Text style={styles.subTitle}>Left: </Text> // {listItems.length}
+        <Text style={styles.subTitle}>Left: {listItems.length}</Text> 
       ) : (
         <Text></Text>
       )}

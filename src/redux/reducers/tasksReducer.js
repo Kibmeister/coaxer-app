@@ -93,15 +93,13 @@ const tasksReducer = (state = initialState, action) => {
                 draft.tasksList.push(task);
               }
             });
+            //TODO: sette prioriteten til tasksene til den indexen de har
           }
         } else {
           draft.tasksList.push(task);       // hvis det ikke er satt en duedat for tasken
         }
-        console.log('State list : ');
-        console.log(state.tasksList);
-        console.log('---------------------------------');
       case REMOVE_ITEM:
-
+        draft.tasksList = draft.tasksList.filter(task => task.id !== action.payload);
       default:
     }
   });

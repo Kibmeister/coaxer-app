@@ -44,6 +44,7 @@ function Modal({ navigation }) {
         date: taskDate,
       },
       priority: 1,
+      id: Math.random(),
     }));    
   };
   const exitModal = () => {
