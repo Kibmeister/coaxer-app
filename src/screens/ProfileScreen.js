@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Header from '../components/Header';
-import ListView from '../components/ListView';
+import ProfileView from '../components/ProfileView';
 import BottomNav from '../screens/BottomNav';
 
 
@@ -12,7 +12,7 @@ const ScreenProfile = ({navigation}) => {
     <StatusBar barStyle='light-content' />
     <View style={styles.container}>
       <Header title={'Profile'}/>
-      <ListView /> 
+      <ProfileView /> 
       <View style={styles.fabContainer}>
         
       </View>

@@ -43,8 +43,8 @@ function Modal({ navigation }) {
         cond: taskDateCond,
         date: taskDate,
       },
-      priority: 1,
       id: Math.random(),
+      key: '',
     }));    
   };
   const exitModal = () => {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    height: '30%',
+    height: '90%',
     width: '100%',
     position: 'absolute',
     bottom: 0,

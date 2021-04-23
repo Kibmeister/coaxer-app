@@ -8,18 +8,12 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/reducers/tasksReducer';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
 
 function ModalDescription(props) {
   const [value, setValue] = useState('');
 
   const dispatch = useDispatch();
-
-  // const onSaveNote = (value) => {
-  //   dispatch(addItem(value));
-  //   navigation.navigate('Tasks');
-  // };
 
   const toggleScreen = (modalName) => {
     props.description(value);

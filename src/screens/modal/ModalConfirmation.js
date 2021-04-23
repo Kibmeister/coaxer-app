@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/reducers/tasksReducer';
 import {
   shuffleModals,
   resetModal,
@@ -19,11 +18,7 @@ function ModalConfirmation({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const onSaveNote = (value) => {
-    dispatch(addItem(value));
-    navigation.navigate('Tasks');
-    dispatch(resetModal());
-  };
+  
 
   const toggleScreen = (modalName) => {
     dispatch(shuffleModals(modalName));

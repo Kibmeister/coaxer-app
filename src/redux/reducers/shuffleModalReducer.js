@@ -44,7 +44,6 @@ const shuffleModalReducer = (state = initialState, action) => {
           draft.activeModals.iterations.active = false;
           draft.activeModals.duedate.active = true;
         } else if (action.payload == 'DueDate') {
-          //console.log('detter action type: ' + action.type);
           draft.activeModals.description.active = false;
           draft.activeModals.category.active = false;
           draft.activeModals.iterations.active = false;

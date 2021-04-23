@@ -7,6 +7,6 @@ import shuffleModalReducer from './shuffleModalReducer';
 const rootReducer = combineReducers({
   TasksR: tasksReducer,
   BottomBarR: bottomBarReducer,
-  ShuffleModalR: shuffleModalReducer
+  ShuffleModalR: shuffleModalReducer,
 })
 export default rootReducer;

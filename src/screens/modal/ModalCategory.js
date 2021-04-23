@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/reducers/tasksReducer';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
 import CategoryButtons from '../../components/CategoryButtons';
 
@@ -17,10 +16,6 @@ function ModalCategory(props) {
 
   const dispatch = useDispatch();
 
-  const onSaveNote = (value) => {
-    dispatch(addItem(value));
-    navigation.navigate('Tasks');
-  };
   const toggleScreen = (modalName) => {
     props.category(category);
     dispatch(shuffleModals(modalName));

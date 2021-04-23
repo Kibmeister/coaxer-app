@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/reducers/tasksReducer';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
 import Slider1 from '../../components/Slider1';
 
@@ -16,11 +15,7 @@ function ModalIteration(props) {
   const [taskIteration, setTaskIteration] = useState('');
 
   const dispatch = useDispatch();
-
-  const onSaveNote = (value) => {
-    dispatch(addItem(value));
-    navigation.navigate('Tasks');
-  };
+  
   const toggleScreen = (modalName) => {
     dispatch(shuffleModals(modalName));
     props.iteration(taskIteration);

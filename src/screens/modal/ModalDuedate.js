@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/reducers/tasksReducer';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
 import DatePicker from '../../components/DatePicker';
 
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: 'lightblue',
     top: 10,
     height: 100,
   },

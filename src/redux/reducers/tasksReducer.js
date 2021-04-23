@@ -2,6 +2,7 @@ import produce from 'immer';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const SET_TASK_LIST = 'SET_TASK_LIST';
 
 export const addItem = (item) => ({
   type: ADD_ITEM,
@@ -11,10 +12,17 @@ export const removeItem = (id) => ({
   type: REMOVE_ITEM,
   payload: id,
 });
+export const setTaskList = (list) => ({
+  type: SET_TASK_LIST,
+  payload: list,
+});
 
 const initialState = {
   tasksList: [],
+  indexedTasksList: [],
 };
+
+  
 
 function difference(date1, date2) {
   const date1new = new Date(date1);
@@ -73,50 +81,61 @@ const tasksReducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case ADD_ITEM:
-        if (task.duedate.cond) { // there is a duedate for the event
-          if (draft.tasksList.length == 0) { // the list is empty 
+        console.log('DETTE ER ACTION TYPE : ' + action.type);
+        if (task.duedate.cond) {
+          // there is a duedate for the event
+          if (draft.tasksList.length == 0) {
+            // the list is empty
             draft.tasksList.push(action.payload);
+            console.log('Incomming task List empty');
           } else {
-            let dueDate = difference(formattedDate, task.duedate.date); 
-            let validDate = ((dueDate >= 0) ? true : false)          
-            
-            draft.tasksList.forEach((t, i) => {
-              let dueDateI = difference(formattedDate, t.duedate.date); 
-              let lastTaskDate = difference(formattedDate, draft.tasksList[draft.tasksList.length-1].duedate.date) //finne duedate til siste task i arrayet 
+            let dueDate = difference(formattedDate, task.duedate.date);
+            let validDate = dueDate >= 0 ? true : false;
+            let loopRan = false;
 
-              if (dueDate < dueDateI && validDate) { // incomming task is most urgent
+            draft.tasksList.forEach((t, i) => {
+              let dueDateI = difference(formattedDate, t.duedate.date);
+              let lastTaskDate = difference(
+                formattedDate,
+                draft.tasksList[draft.tasksList.length - 1].duedate.date
+              ); //finne duedate til siste task i arrayet
+
+              if (dueDate < dueDateI && validDate && !loopRan) {
+                // incomming task is most urgent
                 let newArray = draft.tasksList;
                 newArray.splice(i, 0, task);
                 draft.taskList = newArray;
-
-              } else if(lastTaskDate < dueDate && validDate){ // incomming task is less urgen than the least urgent task in list
+                loopRan = true;
+                console.log('Incomming task is more urgent');
+              } else if (lastTaskDate < dueDate && validDate && !loopRan) {
+                // incomming task is less urgen than the least urgent task in list
                 draft.tasksList.push(task);
+                loopRan = true;
+                console.log('Incomming task is LESS urgent');
               }
             });
             //TODO: sette prioriteten til tasksene til den indexen de har
           }
         } else {
-          draft.tasksList.push(task);       // hvis det ikke er satt en duedat for tasken
+          draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
+          console.log('Incomming task without duedate');
         }
       case REMOVE_ITEM:
-        draft.tasksList = draft.tasksList.filter(task => task.id !== action.payload);
+        draft.tasksList = draft.tasksList.filter(
+          (task) => task.id !== action.payload
+        );
+        break;
+
+      case SET_TASK_LIST:
+        // console.log('Dette er store payload')
+        // console.log(action.payload)
+        let newArray = action.payload;
+        draft.tasksList = newArray;
+        break;
+
       default:
     }
   });
 };
 
 export default tasksReducer;
-// return {
-//   ...state,
-//   itemList: state.itemList.concat({
-//     id: Math.random(),
-//     name: action.payload,
-//   }),
-// };
-
-// return {
-//   ...state,
-//   itemList: state.itemList.filter((item) => item.id !== action.payload),
-// };
-
-// return state;
