@@ -17,41 +17,29 @@ function ListView() {
   const dispatch = useDispatch();
 
   const dragComplete = (item) => {
-    let itemArray = item.data;
-    // from object is going to be replaced with to object and visa vreca
+    const { from: sourceIndex, to: targetIndex, data: dragList } = item;
 
-    let indexFrom = item.from; // indexet fra objeket som skal byttes
-    let indexTo = item.to; // indexet som tar plassen over
+    const dragItem = dragList[sourceIndex]; // swapList[sourceIndex];
+    const swapItem = dragList[targetIndex]; // swapList[targetIndex];
 
-    
-    let objMovesFrom = itemArray[indexFrom];
-    let objMovesTo = itemArray[indexTo];
-    let sortedArray = itemArray;
-    console.log('Object moves from : ' + objMovesFrom.description);
-    console.log('Obejct moves to : ' + objMovesTo.description);
+    //dragList[targetIndex] = dragItem; // swapList[targetIndex] = dragItem;
+    //dragList[sourceIndex] = swapItem; // swapList[sourceIndex] = swapItem;
 
-    sortedArray.map((task, i) => {
-      if ((i = indexFrom)) {
-        sortedArray.splice(indexFrom, 1, objMovesTo);
+    dragList.forEach((task, i) => {
+      if ((i = targetIndex)) {
+        dragList.splice(targetIndex, 1, swapItem);
       }
-      if ((i = indexTo)) {
-        sortedArray.splice(indexTo, 1, objMovesFrom);
-      }
+      // if ((i = sourceIndex)) {
+      //   dragList.splice(sourceIndex, 1, dragItem);
+      // }
     });
 
-    console.log(sortedArray);
+    //console.log(dragList);
 
-   //dispatch(setTaskList(item.data));
+    dispatch(setTaskList(dragList));
   };
 
   const taskListOrdered = listItems.map((task, index) => {
-    //  console.log('Dette er taslist key :' + task.key);
-    //  console.log(' ---Den skal gjerne være det samme som index :' + index);
-    //  console.log('' );
-    //  console.log('-----------------------------------------------------');
-    //  console.log('-----------------------------------------------------');
-    //  console.log('-----------------------------------------------------');
-
     const container = {};
     const duedateObject = {};
     container.description = task.description;
@@ -62,9 +50,13 @@ function ListView() {
     container.duedate = duedateObject;
     container.id = task.id;
     container.key = `${index}`;
-    container.backgroundColor = `rgb(${Math.floor(Math.random() * 255)}, ${
-      index * 5
-    }, ${132})`;
+    container.backgroundColor = ((task.category == 'Academic') ? 'red' : ((task.category == 'Practical') ? 'green' : 'blue'));
+
+    console.log('Dette er container key :' + container.key);
+    console.log('Dette er container description :' + container.description);
+    console.log(' ---Den skal gjerne være det samme som index :' + index);
+    console.log('-----------------------------------------------------');
+    console.log('-----------------------------------------------------');
     //((task.category == 'Academic') ? 'red' : ((task.category == 'Practical') ? 'green' : 'blue'))
     return container;
   });
@@ -120,7 +112,7 @@ function ListView() {
             <DraggableFlatList
               data={taskListOrdered}
               renderItem={renderItem}
-              keyExtractor={(item) => `draggable-item-${item.description}`}
+              keyExtractor={(item) => `draggable-item-${item.key}`}
               onDragEnd={(item) => dragComplete(item)}
             />
           </View>
