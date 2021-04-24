@@ -2,12 +2,11 @@ import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTaskList, removeItem } from '../redux/reducers/tasksReducer';
+import { setTaskList, removeItem, decrementIterations } from '../redux/reducers/tasksReducer';
 import { Ionicons } from '@expo/vector-icons';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 
@@ -34,8 +33,6 @@ function ListView() {
       // }
     });
 
-    //console.log(dragList);
-
     dispatch(setTaskList(dragList));
   };
 
@@ -50,36 +47,59 @@ function ListView() {
     container.duedate = duedateObject;
     container.id = task.id;
     container.key = `${index}`;
-    container.backgroundColor = ((task.category == 'Academic') ? 'red' : ((task.category == 'Practical') ? 'green' : 'blue'));
-
-    console.log('Dette er container key :' + container.key);
-    console.log('Dette er container description :' + container.description);
-    console.log(' ---Den skal gjerne være det samme som index :' + index);
-    console.log('-----------------------------------------------------');
-    console.log('-----------------------------------------------------');
-    //((task.category == 'Academic') ? 'red' : ((task.category == 'Practical') ? 'green' : 'blue'))
+    container.backgroundColor =
+      task.category == 'Academic'
+        ? 'red'
+        : task.category == 'Practical'
+        ? 'green'
+        : 'blue';
     return container;
   });
 
   const renderItem = ({ item, drag, isActive }) => (
-    <View style={styles.listItemContainer}>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingRight: 5,
+        width: '100%',
+        borderBottomWidth: 2,
+        borderBottomColor: item.backgroundColor,
+        transform: isActive ? [{ scale: 1.05 }] : null,
+      }}
+    >
       <View style={styles.listItemMetaContainer}>
         <TouchableOpacity
-          onLongPress={drag}
+        onPress={() => dispatch(decrementIterations(item.id))}
           style={{
-            width: 250,
+            width: 220,
             height: 40,
-            backgroundColor: isActive ? 'yellow' : item.backgroundColor,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start'
           }}
         >
           <Text style={styles.itemTitle} numberOfLines={1}>
             {item.description}
           </Text>
+  
         </TouchableOpacity>
-        <View style={styles.button}>
+        <View style={styles.itemIterations} >
+            <Text style={styles.itemIterationsText} numberOfLines={1}>
+              {item.iterations > 1 ? item.iterations : ''}
+            </Text>
+          </View>
+        <View style={styles.trashButton}>
           <TouchableOpacity onPress={() => dispatch(removeItem(item.id))}>
-            {/* dispatch(removeItem(item.id)) */}
-            <Ionicons name='ios-trash' color='#fff' size={20} />
+            <Ionicons name='ios-trash' color='#ff333390' size={30} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.dragButton}>
+          <TouchableOpacity onLongPress={drag}>
+            <Ionicons name='ios-menu' color='grey' size={30} />
           </TouchableOpacity>
         </View>
       </View>
@@ -100,12 +120,12 @@ function ListView() {
         <View style={styles.flatListContainer}>
           <View style={styles.priorityView}>
             <View style={styles.highP}>
-              <Ionicons name='ios-beer-outline' color='black' size={40} />
+              <Ionicons name='ios-warning-outline' color='black' size={40} />
             </View>
             <View style={styles.line}></View>
 
             <View style={styles.lowP}>
-              <Ionicons name='ios-beer-outline' color='grey' size={30} />
+              <Ionicons name='ios-warning-outline' color='grey' size={30} />
             </View>
           </View>
           <View style={styles.flatListView}>
@@ -118,7 +138,9 @@ function ListView() {
           </View>
         </View>
       ) : (
-        <Text style={{ fontSize: 30 }}>Let's fill this badboy up :'(</Text>
+        <Text style={{ fontSize: 30, textAlign: 'center' }}>
+          Let's fill this badboy up :'(
+        </Text>
       )}
     </View>
   );
@@ -164,17 +186,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
-  listItemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingBottom: 5,
-    paddingRight: 5,
-    justifyContent: 'space-between',
-    width: '100%',
-
-    borderBottomWidth: 0.25,
-  },
   listItemMetaContainer: {
     width: '100%',
     flexDirection: 'row',
@@ -182,14 +193,36 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontSize: 22,
-    fontWeight: '400',
-    color: 'white',
+    color: 'grey',
+    fontWeight: 'bold',
+    padding: 0,
   },
-  button: {
+  itemIterations : {
+    
+    width: 20,
+    height: 30,
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginRight: 1,
+    
+  },
+  itemIterationsText: {
+    fontSize: 22,
+    color: 'grey',
+    fontWeight: 'bold',
+  },
+  
+  trashButton: {
     alignSelf: 'flex-end',
     borderRadius: 8,
-    backgroundColor: '#ff333390',
-    padding: 5,
+    
+  },
+  dragButton: {
+    alignSelf: 'flex-end',
+    borderRadius: 8,
+    
   },
 });
 

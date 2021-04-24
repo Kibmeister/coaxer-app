@@ -3,6 +3,7 @@ import produce from 'immer';
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SET_TASK_LIST = 'SET_TASK_LIST';
+export const DECREMENT_ITERATIONS = 'DECREMENT_ITERATIONS';
 
 export const addItem = (item) => ({
   type: ADD_ITEM,
@@ -16,17 +17,19 @@ export const setTaskList = (list) => ({
   type: SET_TASK_LIST,
   payload: list,
 });
+export const decrementIterations = (id) => ({
+  type: DECREMENT_ITERATIONS,
+  payload: id,
+});
 
 const initialState = {
   tasksList: [],
-  indexedTasksList: [],
 };
-
-  
 
 function difference(date1, date2) {
   const date1new = new Date(date1);
   const date2new = new Date(date2);
+
   const date1utc = Date.UTC(
     date1new.getFullYear(),
     date1new.getMonth(),
@@ -74,7 +77,7 @@ const monthStringToNUmber = (month) => {
 var d = new Date();
 const mdate = d.toString().split(' ');
 const formattedDate =
-  mdate[3] + '-' + monthStringToNUmber(mdate[1]) + '-' + mdate[2];
+  mdate[3] + '/' + monthStringToNUmber(mdate[1]) + '/' + mdate[2];
 
 const tasksReducer = (state = initialState, action) => {
   let task = action.payload;
@@ -94,11 +97,24 @@ const tasksReducer = (state = initialState, action) => {
             let loopRan = false;
 
             draft.tasksList.forEach((t, i) => {
-              let dueDateI = difference(formattedDate, t.duedate.date);
-              let lastTaskDate = difference(
-                formattedDate,
-                draft.tasksList[draft.tasksList.length - 1].duedate.date
-              ); //finne duedate til siste task i arrayet
+              console.log('For each kjører');
+              // sjeke at tasken i arrayet har en duedate før difference funksjonen kjører
+              let dueDateI = '';
+              let lastTaskDate = '';
+              if (t.duedate.cond) {
+                dueDateI = difference(formattedDate, t.duedate.date);
+              }
+              if (draft.tasksList[draft.tasksList.length - 1].duedate.cond) {
+                lastTaskDate = difference(
+                  formattedDate,
+                  draft.tasksList[draft.tasksList.length - 1].duedate.date
+                );
+              }
+
+              //finne duedate til siste task i arrayet
+              // console.log('Duedate :' + dueDate);
+              // console.log('DuedateI :' + dueDateI);
+              // console.log('Last task date :' + lastTaskDate);
 
               if (dueDate < dueDateI && validDate && !loopRan) {
                 // incomming task is most urgent
@@ -114,7 +130,6 @@ const tasksReducer = (state = initialState, action) => {
                 console.log('Incomming task is LESS urgent');
               }
             });
-            //TODO: sette prioriteten til tasksene til den indexen de har
           }
         } else {
           draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
@@ -127,10 +142,20 @@ const tasksReducer = (state = initialState, action) => {
         break;
 
       case SET_TASK_LIST:
-        // console.log('Dette er store payload')
-        // console.log(action.payload)
         let newArray = action.payload;
         draft.tasksList = newArray;
+        break;
+      case DECREMENT_ITERATIONS:
+        console.log('Decrement iterations :' + action.payload);
+        let arr = draft.tasksList;
+        arr.map((task, i) => {
+          {
+            task.id == action.payload && task.iterations > 1
+              ? (task.iterations -= 1)
+              : (task.iterations = task.iterations);
+          }
+        });
+        draft.tasksList = arr;
         break;
 
       default:

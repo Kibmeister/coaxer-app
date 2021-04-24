@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,6 +17,9 @@ function ModalIteration(props) {
   
   const toggleScreen = (modalName) => {
     dispatch(shuffleModals(modalName));
+    if(taskIteration == 0){
+      props.iteration(1);
+    }
     props.iteration(taskIteration);
   };
   return (
@@ -54,18 +56,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: 'lightblue',
+
     top: 10,
     height: 100,
   },
 
   sliderContainer: {
-    //justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    //padding: 5,
-    //borderColor: 'gray',
-    //borderBottomWidth: 1,
+   
   },
 });
 

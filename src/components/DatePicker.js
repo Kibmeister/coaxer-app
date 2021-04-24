@@ -50,7 +50,7 @@ const DueDatePicker = (props) => {
     const mdate = date.toString().split(' ');
     setDatePickerVisibility(false);
 
-    const formatedDate = mdate[3] + '-' + monthStringToNUmber(mdate[1]) + '-' + mdate[2];
+    const formatedDate = mdate[3] + '/' + monthStringToNUmber(mdate[1]) + '/' + mdate[2];
     const formatedDate2 = mdate[2] + ' ' + mdate[1] + ' ' + mdate[3];
    
     if(date.length == 0){

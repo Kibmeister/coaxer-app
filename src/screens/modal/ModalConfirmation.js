@@ -3,14 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import {
   shuffleModals,
-  resetModal,
+  
 } from '../../redux/reducers/shuffleModalReducer';
 
 function ModalConfirmation({ navigation }) {
@@ -18,11 +16,7 @@ function ModalConfirmation({ navigation }) {
 
   const dispatch = useDispatch();
 
-  
 
-  const toggleScreen = (modalName) => {
-    dispatch(shuffleModals(modalName));
-  };
   return (
     <View style={styles.modalContainer}>
       <View style={styles.checkmarkContainer}>

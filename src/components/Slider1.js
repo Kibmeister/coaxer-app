@@ -5,7 +5,7 @@ import Slider from '@react-native-community/slider';
 const Slider1 = (props) => {
   const [sliderValue, setSliderValue] = useState(1);
 
-  const setIterationNumber = (type) => {
+  const setIterationNumber = (value) => {
     props.iteration(sliderValue +1);
   };
 
