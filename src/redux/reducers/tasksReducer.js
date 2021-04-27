@@ -143,7 +143,10 @@ const tasksReducer = (state = initialState, action) => {
 
       case SET_TASK_LIST:
         let newArray = action.payload;
-        draft.tasksList = newArray;
+        if (newArray.length !== 0) {
+          draft.tasksList = newArray;
+        }
+
         break;
       case DECREMENT_ITERATIONS:
         console.log('Decrement iterations :' + action.payload);

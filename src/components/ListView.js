@@ -28,9 +28,6 @@ function ListView() {
       if ((i = targetIndex)) {
         dragList.splice(targetIndex, 1, swapItem);
       }
-      // if ((i = sourceIndex)) {
-      //   dragList.splice(sourceIndex, 1, dragItem);
-      // }
     });
 
     dispatch(setTaskList(dragList));
