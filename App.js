@@ -9,7 +9,7 @@ import * as TaskManager from 'expo-task-manager';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 
-
+// only when the notification is received in the foreground
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -26,30 +26,32 @@ export default function App() {
   let stateArray = [];
   let latestTask;
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-   
-    setInterval(async () => {
-      if (store.getState().TasksR.tasksList.length !== 0) {
-        stateArray = store.getState().TasksR.tasksList;
-        taskForNotification();
-      } else if (store.getState().TasksR.tasksList.length == 0) {
-        latestTask = null;
-      }
-     // console.log(latestTask);
+  setInterval(async () => {
 
-      if (expoPushToken.length !== 0 && latestTask !== null) {
-        await sendPushNotification(expoPushToken, latestTask);
-      }
-    }, 10000);
+    if (store.getState().TasksR.tasksList.length !== 0) {
+      stateArray = store.getState().TasksR.tasksList;
+      taskForNotification();
+    } else if (store.getState().TasksR.tasksList.length == 0) {
+      latestTask = null;
+    } if (expoPushToken.length !== 0 && latestTask !== null) {
+      alert('Notifikasjon er outbound!');
+      await sendPushNotification(expoPushToken, latestTask);
+    }
+  }, 15000);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) => {
+      setExpoPushToken(token);
+    });
 
     //This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
-        console.log('Nå er notifikasjon mottatt i forgrunne : ' + notification.request.content.body);
+        console.log(
+          'Nå i forgrunnen : ' +
+            notification.request.content.body
+        );
       }
     );
 
@@ -92,28 +94,28 @@ const styles = StyleSheet.create({
   },
 });
 
-
 async function sendPushNotification(expoPushToken, task) {
-    const message = {
-      to: expoPushToken,
-      sound: 'default',
-      title: task.category,
-      body: task.description,
-      data: { someData: 'goes here' },
-    };
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: task.category,
+    body: task.description,
+    data: { someData: 'goes here' },
+  };
 
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
 }
 // denne function lager basically
 async function registerForPushNotificationsAsync() {
+  alert('registerForPushNotificationsAsync');
   let token;
   if (Constants.isDevice) {
     const {
@@ -129,9 +131,18 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      sound: 'practical.wav',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
   }
 
   return token;

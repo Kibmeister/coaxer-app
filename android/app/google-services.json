@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271311569628",
+    "project_id": "coaxer-app",
+    "storage_bucket": "coaxer-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271311569628:android:f7253bf51ad196272b2a19",
+        "android_client_info": {
+          "package_name": "com.coaxerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271311569628-efh8jsed8ngptn4v2qcbhntp3sv9gqcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4l2LQ9QR_51DdhPGYPsbStbeWljM-jkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271311569628-efh8jsed8ngptn4v2qcbhntp3sv9gqcc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

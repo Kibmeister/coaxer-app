@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coaxerapp.iml" filepath="$PROJECT_DIR$/.idea/modules/coaxerapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/coaxerapp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/coaxerapp.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1137489247/coaxerapp.expo-application.iml" filepath="$PROJECT_DIR$/.idea/modules/1137489247/coaxerapp.expo-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1882962324/coaxerapp.expo-background-fetch.iml" filepath="$PROJECT_DIR$/.idea/modules/-1882962324/coaxerapp.expo-background-fetch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1811296798/coaxerapp.expo-constants.iml" filepath="$PROJECT_DIR$/.idea/modules/1811296798/coaxerapp.expo-constants.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-564095989/coaxerapp.expo-error-recovery.iml" filepath="$PROJECT_DIR$/.idea/modules/-564095989/coaxerapp.expo-error-recovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/607544239/coaxerapp.expo-file-system.iml" filepath="$PROJECT_DIR$/.idea/modules/607544239/coaxerapp.expo-file-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1649898784/coaxerapp.expo-font.iml" filepath="$PROJECT_DIR$/.idea/modules/-1649898784/coaxerapp.expo-font.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/771271766/coaxerapp.expo-image-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/771271766/coaxerapp.expo-image-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1670433038/coaxerapp.expo-keep-awake.iml" filepath="$PROJECT_DIR$/.idea/modules/1670433038/coaxerapp.expo-keep-awake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1794227511/coaxerapp.expo-notifications.iml" filepath="$PROJECT_DIR$/.idea/modules/1794227511/coaxerapp.expo-notifications.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1581461651/coaxerapp.expo-permissions.iml" filepath="$PROJECT_DIR$/.idea/modules/1581461651/coaxerapp.expo-permissions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1170058465/coaxerapp.expo-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/1170058465/coaxerapp.expo-splash-screen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-769631013/coaxerapp.expo-structured-headers.iml" filepath="$PROJECT_DIR$/.idea/modules/-769631013/coaxerapp.expo-structured-headers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-848356618/coaxerapp.expo-task-manager.iml" filepath="$PROJECT_DIR$/.idea/modules/-848356618/coaxerapp.expo-task-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-198629799/coaxerapp.expo-updates.iml" filepath="$PROJECT_DIR$/.idea/modules/-198629799/coaxerapp.expo-updates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2123942145/coaxerapp.react-native-community_datetimepicker.iml" filepath="$PROJECT_DIR$/.idea/modules/2123942145/coaxerapp.react-native-community_datetimepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1227273425/coaxerapp.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-1227273425/coaxerapp.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1272841753/coaxerapp.react-native-community_slider.iml" filepath="$PROJECT_DIR$/.idea/modules/1272841753/coaxerapp.react-native-community_slider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/917119112/coaxerapp.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/917119112/coaxerapp.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/882526356/coaxerapp.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/882526356/coaxerapp.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1534539505/coaxerapp.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1534539505/coaxerapp.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-231972791/coaxerapp.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-231972791/coaxerapp.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1004412875/coaxerapp.unimodules-app-loader.iml" filepath="$PROJECT_DIR$/.idea/modules/1004412875/coaxerapp.unimodules-app-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-141615407/coaxerapp.unimodules-barcode-scanner-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-141615407/coaxerapp.unimodules-barcode-scanner-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1914166301/coaxerapp.unimodules-camera-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/1914166301/coaxerapp.unimodules-camera-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1224945169/coaxerapp.unimodules-constants-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1224945169/coaxerapp.unimodules-constants-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-428144831/coaxerapp.unimodules-core.iml" filepath="$PROJECT_DIR$/.idea/modules/-428144831/coaxerapp.unimodules-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1068267498/coaxerapp.unimodules-face-detector-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1068267498/coaxerapp.unimodules-face-detector-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1881199360/coaxerapp.unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1881199360/coaxerapp.unimodules-file-system-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/715147719/coaxerapp.unimodules-font-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/715147719/coaxerapp.unimodules-font-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/532686013/coaxerapp.unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/532686013/coaxerapp.unimodules-image-loader-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2062799644/coaxerapp.unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-2062799644/coaxerapp.unimodules-permissions-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-827023031/coaxerapp.unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/-827023031/coaxerapp.unimodules-react-native-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1644784871/coaxerapp.unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1644784871/coaxerapp.unimodules-sensors-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1217082531/coaxerapp.unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/.idea/modules/-1217082531/coaxerapp.unimodules-task-manager-interface.iml" />
+    </modules>
+  </component>
+</project>
