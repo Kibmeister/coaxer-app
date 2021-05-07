@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
 import { View, StyleSheet, Text, Button } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,11 +17,11 @@ const ProfileView = () => {
         backgroundColor: 'white',
       }}
     >
-      {/* <Text>Your expo push token: {expoPushToken}</Text> */}
+      
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
       
       </View>
-     <Text>Fete faen</Text>
+     <Text>Høyere lyd</Text>
     </View>
   );
 };

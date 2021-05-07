@@ -6,33 +6,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import store from './src/redux/store';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
 import { Audio } from 'expo-av';
 
+async function playAcademic() {
+  const { sound } = await Audio.Sound.createAsync(
+    require('./src/assets/sounds/academic.mp3')
+  );
+  sound.setVolumeAsync(1.0);
+  
+  await sound.playAsync();
+}
+
+async function playLeisure() {
+  const { sound } = await Audio.Sound.createAsync(
+    require('./src/assets/sounds/leisure.mp3')
+  );
+  sound.setVolumeAsync(1.0);
+  await sound.playAsync();
+}
+
+async function playPractical() {
+  const { sound } = await Audio.Sound.createAsync(
+    require('./src/assets/sounds/practical.mp3')
+  );
+  sound.setVolumeAsync(1.0);
+  await sound.playAsync();
+}
+
 export default function App() {
-  async function playAcademic() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('./src/assets/sounds/academic.mp3')
-    );
-    await sound.playAsync();
-  }
-
-  async function playLeisure() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('./src/assets/sounds/leisure.mp3')
-    );
-    await sound.playAsync();
-  }
-
-  async function playPractical() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('./src/assets/sounds/practical.mp3')
-    );
-    await sound.playAsync();
-    alert('Det er fuckings lyd i dritten');
-  }
-
   useEffect(() => {
     // set the settings for audio play, background sound and earpiece
     Audio.setAudioModeAsync({
@@ -41,11 +42,22 @@ export default function App() {
       shouldDuckAndroid: true,
       playThroughEarpieceAndroid: true,
     });
-    setInterval(async () => {
 
-      await playPractical();
+    registerTaskAsync();
+
+    setInterval(async () => {
+      //await playPractical();
     }, 10000);
   }, []);
+
+  registerTaskAsync = async () => {
+    await BackgroundFetch.registerTaskAsync('vesken', {
+      minimumInterval: 5,
+      stopOnTerminate: false,
+      startOnBoot: true,
+    });
+    console.log('task registered');
+  };
 
   return (
     <StateProvider store={store}>
@@ -62,3 +74,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+TaskManager.defineTask('vesken', () => {
+  try {
+    const taskArray = store.getState().TasksR.tasksList;
+    if (taskArray.length !== 0) {
+      receiveArray(taskArray);
+    } else {
+      console.log('Empty array');
+    }
+    return taskArray
+      ? BackgroundFetch.Result.NewData
+      : BackgroundFetch.Result.NoData;
+  } catch (err) {
+    return BackgroundFetch.Result.Failed;
+  }
+});
+
+
+receiveArray = (array) => {
+  console.log('Receive array');
+  const latestTask = array[array.length - 1];
+  const { category } = latestTask;
+  category == 'Leisure' ? playLeisure() : category == 'Academic' ? playAcademic() : playPractical();
+
+}

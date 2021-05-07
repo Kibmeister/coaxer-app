@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTaskList, removeItem, decrementIterations } from '../redux/reducers/tasksReducer';
+import { setTaskList, decrementIterations } from '../redux/reducers/tasksReducer';
 import { Ionicons } from '@expo/vector-icons';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 
@@ -21,8 +21,6 @@ function ListView() {
     const dragItem = dragList[sourceIndex]; // swapList[sourceIndex];
     const swapItem = dragList[targetIndex]; // swapList[targetIndex];
 
-    //dragList[targetIndex] = dragItem; // swapList[targetIndex] = dragItem;
-    //dragList[sourceIndex] = swapItem; // swapList[sourceIndex] = swapItem;
 
     dragList.forEach((task, i) => {
       if ((i = targetIndex)) {
@@ -71,7 +69,7 @@ function ListView() {
         <TouchableOpacity
         onPress={() => dispatch(decrementIterations(item.id))}
           style={{
-            width: 220,
+            width: 240,
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
@@ -88,15 +86,10 @@ function ListView() {
               {item.iterations > 1 ? item.iterations : ''}
             </Text>
           </View>
-        <View style={styles.trashButton}>
-          <TouchableOpacity onPress={() => dispatch(removeItem(item.id))}>
-            <Ionicons name='ios-trash' color='#ff333390' size={30} />
-          </TouchableOpacity>
-        </View>
 
         <View style={styles.dragButton}>
           <TouchableOpacity onLongPress={drag}>
-            <Ionicons name='ios-menu' color='grey' size={30} />
+            <Ionicons name='ios-menu' color='grey' size={40} />
           </TouchableOpacity>
         </View>
       </View>
@@ -195,14 +188,13 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   itemIterations : {
-    
     width: 20,
     height: 30,
     flexDirection: 'row',
     alignSelf: 'flex-end',
     alignContent: 'center',
     justifyContent: 'center',
-    marginRight: 1,
+    marginBottom: 5,
     
   },
   itemIterationsText: {
@@ -211,11 +203,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   
-  trashButton: {
-    alignSelf: 'flex-end',
-    borderRadius: 8,
-    
-  },
   dragButton: {
     alignSelf: 'flex-end',
     borderRadius: 8,

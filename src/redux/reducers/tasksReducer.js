@@ -1,7 +1,6 @@
 import produce from 'immer';
 
 export const ADD_ITEM = 'ADD_ITEM';
-export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const DECREMENT_ITERATIONS = 'DECREMENT_ITERATIONS';
 
@@ -9,10 +8,7 @@ export const addItem = (item) => ({
   type: ADD_ITEM,
   payload: item,
 });
-export const removeItem = (id) => ({
-  type: REMOVE_ITEM,
-  payload: id,
-});
+
 export const setTaskList = (list) => ({
   type: SET_TASK_LIST,
   payload: list,
@@ -135,12 +131,7 @@ const tasksReducer = (state = initialState, action) => {
           draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
           console.log('Incomming task without duedate');
         }
-      case REMOVE_ITEM:
-        draft.tasksList = draft.tasksList.filter(
-          (task) => task.id !== action.payload
-        );
         break;
-
       case SET_TASK_LIST:
         let newArray = action.payload;
         if (newArray.length !== 0) {
@@ -153,12 +144,13 @@ const tasksReducer = (state = initialState, action) => {
         let arr = draft.tasksList;
         arr.map((task, i) => {
           {
-            task.id == action.payload && task.iterations > 1
+            task.id == action.payload
               ? (task.iterations -= 1)
               : (task.iterations = task.iterations);
           }
         });
-        draft.tasksList = arr;
+        // delete the taks when decrementet to 0
+        draft.tasksList = arr.filter((task) => task.iterations > 0);
         break;
 
       default:
