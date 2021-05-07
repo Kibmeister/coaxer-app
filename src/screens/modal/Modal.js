@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/reducers/tasksReducer';
@@ -23,6 +19,7 @@ function Modal({ navigation }) {
   const [taskCategory, setTaskCategory] = useState('');
   const [taskIteration, setTaskIteration] = useState('');
   const [taskDate, setTaskDate] = useState('');
+  const [taskDateF, setTaskDateF] = useState(''); //only to dipslay the date in the right order for modalconfirmation
   const [taskDateCond, setTaskCond] = useState(false);
 
   const setDueDate = (value) => {
@@ -31,22 +28,24 @@ function Modal({ navigation }) {
       setTaskCond(true);
     }
   };
-  
+
   const onSaveNote = () => {
-    dispatch(addItem({
-      description: taskDesctiption,
-      category: taskCategory,
-      iterations: taskIteration,
-      duedate: {
-        cond: taskDateCond,
-        date: taskDate,
-      },
-      id: Math.random(),
-      key: '',
-    }));    
+    dispatch(
+      addItem({
+        description: taskDesctiption,
+        category: taskCategory,
+        iterations: taskIteration,
+        duedate: {
+          cond: taskDateCond,
+          date: taskDate,
+        },
+        id: Math.random(),
+        key: '',
+      })
+    );
   };
   const exitModal = () => {
-    navigation.goBack();
+    navigation.navigate('Tasks');
     dispatch(resetModal());
   };
 
@@ -74,6 +73,7 @@ function Modal({ navigation }) {
             category={(value) => {
               setTaskCategory(value);
             }}
+            description={taskDesctiption}
           />
         ) : null}
         {activeModals.iterations.active ? (
@@ -81,18 +81,30 @@ function Modal({ navigation }) {
             iteration={(value) => {
               setTaskIteration(value);
             }}
+            description={taskDesctiption}
+            category={taskCategory}
           />
         ) : null}
         {activeModals.duedate.active ? (
           <ModalDuedate
-            date={(value) => {
-              setDueDate(value);
+            date={(formatedDate, formatedDate2) => {
+              setDueDate(formatedDate);
+              setTaskDateF(formatedDate2);
             }}
             saveNote={() => onSaveNote()}
+            description={taskDesctiption}
+            category={taskCategory}
+            iteration={taskIteration}
           />
         ) : null}
         {activeModals.confirmation.active ? (
-          <ModalConfirmation navigation={navigation} />
+          <ModalConfirmation
+            exitModal={exitModal}
+            description={taskDesctiption}
+            category={taskCategory}
+            iteration={taskIteration}
+            duedate={taskDateF}
+          />
         ) : null}
       </View>
     </View>

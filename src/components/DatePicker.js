@@ -57,7 +57,7 @@ const DueDatePicker = (props) => {
       formatedDate = '';
     }
     setChoseDate(formatedDate2);
-    props.date(formatedDate);
+    props.date(formatedDate, formatedDate2);
 
   };
   return (

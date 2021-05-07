@@ -21,7 +21,7 @@ function ModalDescription(props) {
   };
   return (
     <View style={styles.modalContainer}>
-      <Text style={{ color: '#444', fontSize: 20 }}>
+      <Text style={{ color: '#444', fontSize: 20, fontWeight: 'bold'}}>
         What do you want to do?
       </Text>
       <TextInput

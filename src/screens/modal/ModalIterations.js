@@ -24,7 +24,7 @@ function ModalIteration(props) {
   };
   return (
     <View style={styles.modalContainer}>
-      <Text style={{ color: '#444', fontSize: 20 }}>Number of iterations</Text>
+      <Text style={{ color: '#444', fontSize: 20, fontWeight: 'bold'}}>Number of iterations</Text>
 
       <View style={styles.sliderContainer}>
         <Slider1
@@ -47,6 +47,28 @@ function ModalIteration(props) {
       >
         <Ionicons name='ios-arrow-forward' size={40} color='#fff' />
       </TouchableOpacity>
+    
+    
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          borderColor: 'grey',
+          borderStyle: 'dashed',
+          borderWidth: 1,
+          borderRadius: 20,
+          height: '10%',
+          alignItems: 'center',
+          justifyContent:'center',
+          position: 'absolute',
+          bottom: 10,
+
+        }}
+      >
+        <Text style={{ fontSize: 16 }}> {props.description}, {props.category}</Text>
+        <Text style={{ fontSize: 16, color:'lightgrey'}}>, {taskIteration == 0 ? 1 : taskIteration}</Text>
+      </View>
+    
     </View>
   );
 }
@@ -56,9 +78,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-
+    width: '90%',
+    height: '85%',
     top: 10,
-    height: 100,
   },
 
   sliderContainer: {

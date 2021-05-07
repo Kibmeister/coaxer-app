@@ -6,7 +6,7 @@ const Slider1 = (props) => {
   const [sliderValue, setSliderValue] = useState(1);
 
   const setIterationNumber = (value) => {
-    props.iteration(sliderValue +1);
+    props.iteration(value);
   };
 
   return (
