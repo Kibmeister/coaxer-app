@@ -4,6 +4,7 @@ import MainStackNavigator from './src/navigation/AppNavigator';
 import { Provider as StateProvider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import store from './src/redux/store';
+import { setTopThree } from './src/redux/reducers/tasksReducer';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 import { Audio } from 'expo-av';
@@ -13,7 +14,7 @@ async function playAcademic() {
     require('./src/assets/sounds/academic.mp3')
   );
   sound.setVolumeAsync(1.0);
-  
+
   await sound.playAsync();
 }
 
@@ -40,14 +41,14 @@ export default function App() {
       staysActiveInBackground: true,
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
       shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: true,
+      playThroughEarpieceAndroid: false,
     });
 
     registerTaskAsync();
 
     setInterval(async () => {
-      //await playPractical();
-    }, 10000);
+      store.dispatch(setTopThree(new Date()));
+    }, 30000);
   }, []);
 
   registerTaskAsync = async () => {
@@ -78,8 +79,9 @@ const styles = StyleSheet.create({
 TaskManager.defineTask('vesken', () => {
   try {
     const taskArray = store.getState().TasksR.tasksList;
+
     if (taskArray.length !== 0) {
-      receiveArray(taskArray);
+      receiveArray();
     } else {
       console.log('Empty array');
     }
@@ -91,11 +93,13 @@ TaskManager.defineTask('vesken', () => {
   }
 });
 
+receiveArray = () => {
+  // new Date().toLocaleString('en-GB', {timeZone: 'Europe/Copenhagen'})
+  //store.dispatch(setTopThree('den gang da'));
 
-receiveArray = (array) => {
   console.log('Receive array');
-  const latestTask = array[array.length - 1];
-  const { category } = latestTask;
-  category == 'Leisure' ? playLeisure() : category == 'Academic' ? playAcademic() : playPractical();
 
-}
+  //fcDate(taskDates);
+  //const { category } = latestTask;
+  //category == 'Leisure' ? playLeisure() : category == 'Academic' ? playAcademic() : playPractical();
+};

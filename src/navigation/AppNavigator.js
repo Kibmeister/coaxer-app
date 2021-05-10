@@ -8,6 +8,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import BottomNav from '../screens/BottomNav';
 import ProfileScreen from '../screens/ProfileScreen';
 import Modal from '../screens/modal/Modal';
+
 const Stack = createStackNavigator();
 
 function MainStackNavigator() {

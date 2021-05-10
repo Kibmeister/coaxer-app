@@ -3,6 +3,7 @@ import produce from 'immer';
 export const ADD_ITEM = 'ADD_ITEM';
 export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const DECREMENT_ITERATIONS = 'DECREMENT_ITERATIONS';
+export const SET_TOP_THREE = 'SET_TOP_THREE';
 
 export const addItem = (item) => ({
   type: ADD_ITEM,
@@ -18,13 +19,21 @@ export const decrementIterations = (id) => ({
   payload: id,
 });
 
+export const setTopThree = (time) => ({
+  type: SET_TOP_THREE,
+  payload: time,
+});
+
 const initialState = {
   tasksList: [],
+  topThreeTask: [],
+  previousTime: {},
 };
 
 function difference(date1, date2) {
   const date1new = new Date(date1);
   const date2new = new Date(date2);
+  
 
   const date1utc = Date.UTC(
     date1new.getFullYear(),
@@ -152,6 +161,59 @@ const tasksReducer = (state = initialState, action) => {
         // delete the taks when decrementet to 0
         draft.tasksList = arr.filter((task) => task.iterations > 0);
         break;
+
+      case SET_TOP_THREE:
+        // Check the date, split it to a string
+        let cphDate = action.payload.toLocaleString('en-GB', {
+          timeZone: 'Europe/Copenhagen',
+        });
+        let date = cphDate.toString().split(' ');
+        const incommingFormattedDate =
+          date[4] +
+          '/' +
+          monthStringToNUmber(date[1]) +
+          '/' +
+          date[2] +
+          '/' +
+          date[3];
+        if (Object.keys(draft.previousTime).length == 0) {
+          // previous time not set
+          //2021/5/10/17:14:12
+          draft.previousTime = incommingFormattedDate;
+        }
+
+        let hour = date[3].split(':')[0];
+        let minute = date[3].split(':')[1];
+        const correctHour =
+          19 >= parseInt(hour, 10) && parseInt(hour, 10) <= 16;
+        const correctMinute =
+          59 >= parseInt(minute, 10) && parseInt(minute, 10) <= 0;
+
+         
+          // split the date incomming and exisitng to remove the time values
+          let incommingSplit = incommingFormattedDate.split('/');
+          let existingSplit = draft.previousTime.split('/');
+          let yearMonthDatIncomming = incommingSplit[0] +  '/' + incommingSplit[1] + '/' + incommingSplit[2];
+          let yearMonthDatExisting = existingSplit[0] + '/' + existingSplit[1] + '/' + existingSplit[2];
+
+          // THESE TWO DATES ARE LATER COMPARED TO SEE WHETHER A DAY HAS PASSED
+          //console.log(yearMonthDatExisting);
+          //console.log(yearMonthDatIncomming);
+
+          //console.log(difference(yearMonthDatExisting, yearMonthDatIncomming));
+          draft.topThreeTask = draft.tasksList.slice(0, 3)
+          
+          console.log(draft.topThreeTask);
+
+
+           // check if the hour and minute is within the right interval
+        if (correctHour && correctMinute) {
+          // check if a day has passed 
+          if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1) {
+            // sett tre øversre tasks fra initaltask til topthree tasks
+            draft.topThreeTask = draft.tasksList.slice(0, 3)
+          }
+        }
 
       default:
     }

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
-
 const ProfileView = () => {
- 
+
+
   return (
     <View
       style={{
@@ -17,78 +17,22 @@ const ProfileView = () => {
         backgroundColor: 'white',
       }}
     >
-      
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-      
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text>Sync with google calendar</Text>
+        </TouchableOpacity>
       </View>
-     <Text>Høyere lyd</Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  flatListContainer: {
-    height: '85%',
-    width: '100%',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-
-  flatListView: {
-    height: '100%',
-    width: '98%',
-    alignSelf: 'flex-start',
-    flexGrow: 1,
-  },
-
-  priorityView: {
-    height: '100%',
-    width: '15%',
-    backgroundColor: 'white',
-    flexGrow: 0,
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-  },
-
-  highP: {
-    alignSelf: 'center',
-  },
-
-  line: {
-    borderColor: 'black',
-    borderLeftWidth: 1,
-    height: '75%',
-    alignSelf: 'center',
-  },
-  lowP: {
-    alignSelf: 'center',
-  },
-
-  listItemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingBottom: 5,
-    paddingRight: 5,
-    justifyContent: 'space-between',
-    width: '100%',
-
-    borderBottomWidth: 0.25,
-  },
-  listItemMetaContainer: {
-    width: '80%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  itemTitle: {
-    fontSize: 22,
-    fontWeight: '400',
-  },
-  button: {
-    borderRadius: 8,
-    backgroundColor: '#ff333390',
-    padding: 5,
+  buttonContainer: {
+    marginTop: 120,
+    elevation: 8,
+    backgroundColor: 'lightgrey',
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 45,
   },
 });
 
