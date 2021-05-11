@@ -150,7 +150,6 @@ const tasksReducer = (state = initialState, action) => {
 
         break;
       case DECREMENT_ITERATIONS:
-        console.log('Decrement iterations :' + action.payload);
         let arr = draft.tasksList;
         arr.forEach((task) => {
           if(task.id == action.payload){
@@ -161,11 +160,8 @@ const tasksReducer = (state = initialState, action) => {
         break;
 
       case SET_TOP_THREE:
-        // Check the date, split it to a string
-        let cphDate = action.payload.toLocaleString('en-GB', {
-          timeZone: 'Europe/Copenhagen',
-        });
-        let date = cphDate.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
+       
+        let date = action.payload.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
         const incommingFormattedDate =
           date[4] +
           '/' +
@@ -179,7 +175,7 @@ const tasksReducer = (state = initialState, action) => {
           //2021/5/10/17:14:12
           draft.previousTime = incommingFormattedDate;
         }
-        
+        console.log(date[3]);
         let hour; 
         let minute; 
         if(date[3].length !== 0){
@@ -187,8 +183,10 @@ const tasksReducer = (state = initialState, action) => {
           minute = date[3].split(':')[1];
         }
 
-        const correctHour = (20 >= parseInt(hour, 10) && parseInt(hour, 10) >= 19);
-        const correctMinute = (59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 30);
+        const correctHour = (9 >= parseInt(hour, 10) && parseInt(hour, 10) >= 8);
+        const correctMinute = (59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 0);
+        console.log(correctHour);
+        console.log(correctMinute);
 
           // split the date incomming and exisitng to remove the time values
           let incommingSplit = incommingFormattedDate.split('/');
@@ -197,7 +195,6 @@ const tasksReducer = (state = initialState, action) => {
           let yearMonthDatExisting = existingSplit[0] + '/' + existingSplit[1] + '/' + existingSplit[2];
           
   
-          draft.topThreeTask = draft.tasksList.slice(0, 3)
         if (correctHour && correctMinute) {
           // check if a day has passed 
           if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1 || draft.topThreeTask.length == 0) {

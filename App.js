@@ -45,24 +45,21 @@ let soundPlayed = [
 
 export default function App() {
   useEffect(() => {
-    // set the settings for audio play, background sound and earpiece
-    // Audio.setAudioModeAsync({
-    //   staysActiveInBackground: true,
-    //   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-    //   shouldDuckAndroid: true,
-    //   playThroughEarpieceAndroid: false,
-    // });
+    //set the settings for audio play, background sound and earpiece
+    Audio.setAudioModeAsync({
+      staysActiveInBackground: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
 
     registerTaskAsync();
 
-    setInterval(async () => {
-      arrayNotEmpty();
-    }, 10000);
   }, []);
 
   registerTaskAsync = async () => {
     await BackgroundFetch.registerTaskAsync('vesken', {
-      minimumInterval: 5,
+      minimumInterval: 180,
       stopOnTerminate: false,
       startOnBoot: true,
     });
@@ -102,11 +99,13 @@ TaskManager.defineTask('vesken', () => {
 });
 
 arrayNotEmpty = () => {
-  store.dispatch(setTopThree(new Date()));
-
+  
   let cphDate = new Date().toLocaleString('en-GB', {
     timeZone: 'Europe/Copenhagen',
   });
+  store.dispatch(setTopThree(cphDate));
+
+
   let date = cphDate.toString().split(' ');
   let hour = date[3].split(':')[0];
   let minute = date[3].split(':')[1];
@@ -115,19 +114,18 @@ arrayNotEmpty = () => {
 
   if (topThree.length == 3) {
     // check if top three task is empty
-    console.log(cphDate);
-    playSounds(minute, topThree);
+    playSounds(hour, topThree);
   }
 };
 
 playSounds = (time, topThree) => {
+  console.log('Play sound called');
   let timeToPlay = parseInt(time, 10); //string to int
 
   const topThreeArr = topThree;
   let firstPriCategory = topThreeArr[0].category;
   let secondPriCategory = topThreeArr[1].category;
   let thirdPriCategory = topThreeArr[2].category;
-
 
   switch (timeToPlay) {
     case 21: // set all play conditions to true
@@ -202,4 +200,5 @@ playSounds = (time, topThree) => {
       }
       break;
   }
+  console.log(soundPlayed);
 };

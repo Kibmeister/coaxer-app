@@ -1,12 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
-
 const ProfileView = () => {
-
-
   return (
     <View
       style={{
@@ -15,14 +10,17 @@ const ProfileView = () => {
         borderTopRightRadius: 20,
         paddingVertical: 20,
         backgroundColor: 'white',
+        alignItems: 'center',
       }}
     >
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity style={styles.buttonContainer}>
           <Text>Sync with google calendar</Text>
         </TouchableOpacity>
-        <Text>Støggen</Text>
       </View>
+      <Text style={{ color: 'grey', fontSize: 10, position: 'absolute', bottom: 0 }}>
+        Version 1.0
+      </Text>
     </View>
   );
 };

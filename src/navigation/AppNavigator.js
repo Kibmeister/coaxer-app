@@ -12,37 +12,51 @@ import Modal from '../screens/modal/Modal';
 const Stack = createStackNavigator();
 
 function MainStackNavigator() {
-
-  //TODO: det er et irriterern delay når man oppretter en task hvor man ser en flicker av ModalDescription, har nok noe med Modal typen for navigattor
   return (
     <NavigationContainer>
       <Stack.Navigator
-         mode='modal'
-         headerMode='none'
-         initialRouteName='Welcome'
-         screenOptions={{
+        mode='modal'
+        headerMode='none'
+        initialRouteName='Welcome'
+        screenOptions={{
           cardStyle: { backgroundColor: 'transparent' },
           cardOverlayEnabled: true,
-  
-          cardStyleInterpolator: ({ current: { progress } }) => ({
-            cardStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 0.5, 0.9, 1],
-                outputRange: [0, 0.25, 0.7, 1],
-              }),
-            },
-  
-            overlayStyle: {
+        
+         cardStyleInterpolator: ({ current: { progress } }) => ({
+            containerStyle: {
               opacity: progress.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 0.5],
-                extrapolate: 'identity',
+                outputRange: [0, 1],
               }),
             },
-          })
+          }),
         }}
       >
-        <Stack.Screen name='ModalDescription' component={Modal} />
+        <Stack.Screen
+          name='ModalDescription'
+          options={{
+            cardStyle: { backgroundColor: 'transparent' },
+            cardOverlayEnabled: true,
+
+            cardStyleInterpolator: ({ current: { progress } }) => ({
+              cardStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 0.5, 0.9, 1],
+                  outputRange: [0, 0.25, 0.7, 1],
+                }),
+              },
+
+              overlayStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 0.5],
+                  extrapolate: 'identity',
+                }),
+              },
+            }),
+          }}
+          component={Modal}
+        />
         <Stack.Screen name='Tasks' component={TasksScreen} />
         <Stack.Screen name='Welcome' component={WelcomeScreen} />
         <Stack.Screen name='BottomNav' component={BottomNav} />
