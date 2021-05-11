@@ -21,6 +21,7 @@ const ProfileView = () => {
         <TouchableOpacity style={styles.buttonContainer}>
           <Text>Sync with google calendar</Text>
         </TouchableOpacity>
+        <Text>Støggen</Text>
       </View>
     </View>
   );

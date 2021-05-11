@@ -28,6 +28,7 @@ const initialState = {
   tasksList: [],
   topThreeTask: [],
   previousTime: {},
+
 };
 
 function difference(date1, date2) {
@@ -151,14 +152,11 @@ const tasksReducer = (state = initialState, action) => {
       case DECREMENT_ITERATIONS:
         console.log('Decrement iterations :' + action.payload);
         let arr = draft.tasksList;
-        arr.map((task, i) => {
-          {
-            task.id == action.payload
-              ? (task.iterations -= 1)
-              : (task.iterations = task.iterations);
+        arr.forEach((task) => {
+          if(task.id == action.payload){
+            task.iterations -= 1;
           }
-        });
-        // delete the taks when decrementet to 0
+        })
         draft.tasksList = arr.filter((task) => task.iterations > 0);
         break;
 
@@ -167,7 +165,7 @@ const tasksReducer = (state = initialState, action) => {
         let cphDate = action.payload.toLocaleString('en-GB', {
           timeZone: 'Europe/Copenhagen',
         });
-        let date = cphDate.toString().split(' ');
+        let date = cphDate.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
         const incommingFormattedDate =
           date[4] +
           '/' +
@@ -181,39 +179,36 @@ const tasksReducer = (state = initialState, action) => {
           //2021/5/10/17:14:12
           draft.previousTime = incommingFormattedDate;
         }
+        
+        let hour; 
+        let minute; 
+        if(date[3].length !== 0){
+          hour = date[3].split(':')[0];
+          minute = date[3].split(':')[1];
+        }
 
-        let hour = date[3].split(':')[0];
-        let minute = date[3].split(':')[1];
-        const correctHour =
-          19 >= parseInt(hour, 10) && parseInt(hour, 10) <= 16;
-        const correctMinute =
-          59 >= parseInt(minute, 10) && parseInt(minute, 10) <= 0;
+        const correctHour = (20 >= parseInt(hour, 10) && parseInt(hour, 10) >= 19);
+        const correctMinute = (59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 30);
 
-         
           // split the date incomming and exisitng to remove the time values
           let incommingSplit = incommingFormattedDate.split('/');
           let existingSplit = draft.previousTime.split('/');
           let yearMonthDatIncomming = incommingSplit[0] +  '/' + incommingSplit[1] + '/' + incommingSplit[2];
           let yearMonthDatExisting = existingSplit[0] + '/' + existingSplit[1] + '/' + existingSplit[2];
-
-          // THESE TWO DATES ARE LATER COMPARED TO SEE WHETHER A DAY HAS PASSED
-          //console.log(yearMonthDatExisting);
-          //console.log(yearMonthDatIncomming);
-
-          //console.log(difference(yearMonthDatExisting, yearMonthDatIncomming));
-          draft.topThreeTask = draft.tasksList.slice(0, 3)
           
-          console.log(draft.topThreeTask);
-
-
-           // check if the hour and minute is within the right interval
+  
+          draft.topThreeTask = draft.tasksList.slice(0, 3)
         if (correctHour && correctMinute) {
           // check if a day has passed 
-          if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1) {
-            // sett tre øversre tasks fra initaltask til topthree tasks
+          if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1 || draft.topThreeTask.length == 0) {
+            // push the three tasks with highest priority to the topthreetask array
+            console.log('THE TIME IS NOW');
+            console.log(incommingFormattedDate);
+            console.log('---------------------------------');
             draft.topThreeTask = draft.tasksList.slice(0, 3)
           }
         }
+        break;
 
       default:
     }

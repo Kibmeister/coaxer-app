@@ -34,21 +34,30 @@ async function playPractical() {
   await sound.playAsync();
 }
 
+let soundPlayed = [
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+];
+
 export default function App() {
   useEffect(() => {
     // set the settings for audio play, background sound and earpiece
-    Audio.setAudioModeAsync({
-      staysActiveInBackground: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-    });
+    // Audio.setAudioModeAsync({
+    //   staysActiveInBackground: true,
+    //   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+    //   shouldDuckAndroid: true,
+    //   playThroughEarpieceAndroid: false,
+    // });
 
     registerTaskAsync();
 
     setInterval(async () => {
-      store.dispatch(setTopThree(new Date()));
-    }, 30000);
+      arrayNotEmpty();
+    }, 10000);
   }, []);
 
   registerTaskAsync = async () => {
@@ -79,9 +88,8 @@ const styles = StyleSheet.create({
 TaskManager.defineTask('vesken', () => {
   try {
     const taskArray = store.getState().TasksR.tasksList;
-
     if (taskArray.length !== 0) {
-      receiveArray();
+      arrayNotEmpty();
     } else {
       console.log('Empty array');
     }
@@ -93,13 +101,105 @@ TaskManager.defineTask('vesken', () => {
   }
 });
 
-receiveArray = () => {
-  // new Date().toLocaleString('en-GB', {timeZone: 'Europe/Copenhagen'})
-  //store.dispatch(setTopThree('den gang da'));
+arrayNotEmpty = () => {
+  store.dispatch(setTopThree(new Date()));
 
-  console.log('Receive array');
+  let cphDate = new Date().toLocaleString('en-GB', {
+    timeZone: 'Europe/Copenhagen',
+  });
+  let date = cphDate.toString().split(' ');
+  let hour = date[3].split(':')[0];
+  let minute = date[3].split(':')[1];
 
-  //fcDate(taskDates);
-  //const { category } = latestTask;
-  //category == 'Leisure' ? playLeisure() : category == 'Academic' ? playAcademic() : playPractical();
+  let topThree = store.getState().TasksR.topThreeTask;
+
+  if (topThree.length == 3) {
+    // check if top three task is empty
+    console.log(cphDate);
+    playSounds(minute, topThree);
+  }
+};
+
+playSounds = (time, topThree) => {
+  let timeToPlay = parseInt(time, 10); //string to int
+
+  const topThreeArr = topThree;
+  let firstPriCategory = topThreeArr[0].category;
+  let secondPriCategory = topThreeArr[1].category;
+  let thirdPriCategory = topThreeArr[2].category;
+
+
+  switch (timeToPlay) {
+    case 21: // set all play conditions to true
+      soundPlayed.map((t) => {
+        t.value = false;
+      });
+      break;
+    case 10:
+      if (!soundPlayed[0].value) {
+        // check if sound has been played at houer 10
+        firstPriCategory == 'Leisure'
+          ? playLeisure()
+          : firstPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[0].value = true;
+      }
+      break;
+    case 12:
+      if (!soundPlayed[1].value) {
+        // check if sound has been played at houer 12
+        secondPriCategory == 'Leisure'
+          ? playLeisure()
+          : secondPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[1].value = true;
+      }
+      break;
+    case 14:
+      if (!soundPlayed[2].value) {
+        // check if sound has been played at houer 14
+        firstPriCategory == 'Leisure'
+          ? playLeisure()
+          : firstPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[2].value = true;
+      }
+      break;
+    case 16:
+      if (!soundPlayed[3].value) {
+        // check if sound has been played at houer 16
+        secondPriCategory == 'Leisure'
+          ? playLeisure()
+          : secondPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[3].value = true;
+      }
+      break;
+    case 18:
+      if (!soundPlayed[4].value) {
+        // check if sound has been played at houer 18
+        firstPriCategory == 'Leisure'
+          ? playLeisure()
+          : firstPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[4].value = true;
+      }
+      break;
+    case 20:
+      if (!soundPlayed[5].value) {
+        // check if sound has been played at houer 20
+        thirdPriCategory == 'Leisure'
+          ? playLeisure()
+          : thirdPriCategory == 'Academic'
+          ? playAcademic()
+          : playPractical();
+        soundPlayed[5].value = true;
+      }
+      break;
+  }
 };
