@@ -59,7 +59,7 @@ export default function App() {
 
   registerTaskAsync = async () => {
     await BackgroundFetch.registerTaskAsync('vesken', {
-      minimumInterval: 180,
+      minimumInterval: 180, //pass the call to taskmanager every third minute
       stopOnTerminate: false,
       startOnBoot: true,
     });
@@ -128,14 +128,14 @@ playSounds = (time, topThree) => {
   let thirdPriCategory = topThreeArr[2].category;
 
   switch (timeToPlay) {
-    case 21: // set all play conditions to true
+    case 21: // set all play conditions to false
       soundPlayed.map((t) => {
         t.value = false;
       });
       break;
     case 10:
       if (!soundPlayed[0].value) {
-        // check if sound has been played at houer 10
+        // check if sound has been played at hour 10
         firstPriCategory == 'Leisure'
           ? playLeisure()
           : firstPriCategory == 'Academic'
@@ -146,7 +146,7 @@ playSounds = (time, topThree) => {
       break;
     case 12:
       if (!soundPlayed[1].value) {
-        // check if sound has been played at houer 12
+        // check if sound has been played at hour 12
         secondPriCategory == 'Leisure'
           ? playLeisure()
           : secondPriCategory == 'Academic'
@@ -157,7 +157,7 @@ playSounds = (time, topThree) => {
       break;
     case 14:
       if (!soundPlayed[2].value) {
-        // check if sound has been played at houer 14
+        // check if sound has been played at hour 14
         firstPriCategory == 'Leisure'
           ? playLeisure()
           : firstPriCategory == 'Academic'
@@ -168,7 +168,7 @@ playSounds = (time, topThree) => {
       break;
     case 16:
       if (!soundPlayed[3].value) {
-        // check if sound has been played at houer 16
+        // check if sound has been played at hour 16
         secondPriCategory == 'Leisure'
           ? playLeisure()
           : secondPriCategory == 'Academic'
@@ -179,7 +179,7 @@ playSounds = (time, topThree) => {
       break;
     case 18:
       if (!soundPlayed[4].value) {
-        // check if sound has been played at houer 18
+        // check if sound has been played at hour 18
         firstPriCategory == 'Leisure'
           ? playLeisure()
           : firstPriCategory == 'Academic'
@@ -190,7 +190,7 @@ playSounds = (time, topThree) => {
       break;
     case 20:
       if (!soundPlayed[5].value) {
-        // check if sound has been played at houer 20
+        // check if sound has been played at hour 20
         thirdPriCategory == 'Leisure'
           ? playLeisure()
           : thirdPriCategory == 'Academic'
