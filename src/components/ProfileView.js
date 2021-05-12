@@ -19,7 +19,7 @@ const ProfileView = () => {
         </TouchableOpacity>
       </View>
       <Text style={{ color: 'grey', fontSize: 10, position: 'absolute', bottom: 0 }}>
-        Version 1.0
+        Version 1.2
       </Text>
     </View>
   );
