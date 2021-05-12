@@ -41,6 +41,12 @@ let soundPlayed = [
   { value: false },
   { value: false },
   { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
+  { value: false },
 ];
 
 export default function App() {
@@ -55,6 +61,11 @@ export default function App() {
 
     registerTaskAsync();
 
+    // setInterval(async () => {
+    //   playPractical();
+    // }, 3000);
+
+
   }, []);
 
   registerTaskAsync = async () => {
@@ -63,7 +74,7 @@ export default function App() {
       stopOnTerminate: false,
       startOnBoot: true,
     });
-    console.log('task registered');
+    // console.log('task registered');
   };
 
   return (
@@ -119,7 +130,7 @@ arrayNotEmpty = () => {
 };
 
 playSounds = (time, topThree) => {
-  console.log('Play sound called');
+  // console.log('Play sound called');
   let timeToPlay = parseInt(time, 10); //string to int
 
   const topThreeArr = topThree;
@@ -133,7 +144,7 @@ playSounds = (time, topThree) => {
         t.value = false;
       });
       break;
-    case 10:
+    case 9:
       if (!soundPlayed[0].value) {
         // check if sound has been played at hour 10
         firstPriCategory == 'Leisure'
@@ -144,7 +155,7 @@ playSounds = (time, topThree) => {
         soundPlayed[0].value = true;
       }
       break;
-    case 12:
+    case 10:
       if (!soundPlayed[1].value) {
         // check if sound has been played at hour 12
         secondPriCategory == 'Leisure'
@@ -155,7 +166,7 @@ playSounds = (time, topThree) => {
         soundPlayed[1].value = true;
       }
       break;
-    case 14:
+    case 11:
       if (!soundPlayed[2].value) {
         // check if sound has been played at hour 14
         firstPriCategory == 'Leisure'
@@ -166,7 +177,7 @@ playSounds = (time, topThree) => {
         soundPlayed[2].value = true;
       }
       break;
-    case 16:
+    case 12:
       if (!soundPlayed[3].value) {
         // check if sound has been played at hour 16
         secondPriCategory == 'Leisure'
@@ -177,7 +188,7 @@ playSounds = (time, topThree) => {
         soundPlayed[3].value = true;
       }
       break;
-    case 18:
+    case 13:
       if (!soundPlayed[4].value) {
         // check if sound has been played at hour 18
         firstPriCategory == 'Leisure'
@@ -188,7 +199,7 @@ playSounds = (time, topThree) => {
         soundPlayed[4].value = true;
       }
       break;
-    case 20:
+    case 14:
       if (!soundPlayed[5].value) {
         // check if sound has been played at hour 20
         thirdPriCategory == 'Leisure'
@@ -198,7 +209,71 @@ playSounds = (time, topThree) => {
           : playPractical();
         soundPlayed[5].value = true;
       }
+      case 15:
+        if (!soundPlayed[6].value) {
+          // check if sound has been played at hour 10
+          firstPriCategory == 'Leisure'
+            ? playLeisure()
+            : firstPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[6].value = true;
+        }
+        break;
+      case 16:
+        if (!soundPlayed[7].value) {
+          // check if sound has been played at hour 12
+          secondPriCategory == 'Leisure'
+            ? playLeisure()
+            : secondPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[7].value = true;
+        }
+        break;
+      case 17:
+        if (!soundPlayed[8].value) {
+          // check if sound has been played at hour 14
+          firstPriCategory == 'Leisure'
+            ? playLeisure()
+            : firstPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[8].value = true;
+        }
+        break;
+      case 18:
+        if (!soundPlayed[9].value) {
+          // check if sound has been played at hour 16
+          secondPriCategory == 'Leisure'
+            ? playLeisure()
+            : secondPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[3].value = true;
+        }
+        break;
+      case 19:
+        if (!soundPlayed[10].value) {
+          // check if sound has been played at hour 18
+          firstPriCategory == 'Leisure'
+            ? playLeisure()
+            : firstPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[10].value = true;
+        }
+        break;
+      case 20:
+        if (!soundPlayed[11].value) {
+          // check if sound has been played at hour 20
+          thirdPriCategory == 'Leisure'
+            ? playLeisure()
+            : thirdPriCategory == 'Academic'
+            ? playAcademic()
+            : playPractical();
+          soundPlayed[11].value = true;
+        }
       break;
   }
-  console.log(soundPlayed);
 };

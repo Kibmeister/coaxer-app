@@ -90,20 +90,20 @@ const tasksReducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case ADD_ITEM:
-        console.log('DETTE ER ACTION TYPE : ' + action.type);
+        // console.log('DETTE ER ACTION TYPE : ' + action.type);
         if (task.duedate.cond) {
           // there is a duedate for the event
           if (draft.tasksList.length == 0) {
             // the list is empty
             draft.tasksList.push(action.payload);
-            console.log('Incomming task List empty');
+            // console.log('Incomming task List empty');
           } else {
             let dueDate = difference(formattedDate, task.duedate.date);
             let validDate = dueDate >= 0 ? true : false;
             let loopRan = false;
 
             draft.tasksList.forEach((t, i) => {
-              console.log('For each kjører');
+              // console.log('For each kjører');
               // sjeke at tasken i arrayet har en duedate før difference funksjonen kjører
               let dueDateI = '';
               let lastTaskDate = '';
@@ -128,18 +128,18 @@ const tasksReducer = (state = initialState, action) => {
                 newArray.splice(i, 0, task);
                 draft.taskList = newArray;
                 loopRan = true;
-                console.log('Incomming task is more urgent');
+                // console.log('Incomming task is more urgent');
               } else if (lastTaskDate < dueDate && validDate && !loopRan) {
                 // incomming task is less urgen than the least urgent task in list
                 draft.tasksList.push(task);
                 loopRan = true;
-                console.log('Incomming task is LESS urgent');
+                // console.log('Incomming task is LESS urgent');
               }
             });
           }
         } else {
           draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
-          console.log('Incomming task without duedate');
+          // console.log('Incomming task without duedate');
         }
         break;
       case SET_TASK_LIST:
@@ -161,50 +161,52 @@ const tasksReducer = (state = initialState, action) => {
 
       case SET_TOP_THREE:
        
-        let date = action.payload.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
-        const incommingFormattedDate =
-          date[4] +
-          '/' +
-          monthStringToNUmber(date[1]) +
-          '/' +
-          date[2] +
-          '/' +
-          date[3];
-        if (Object.keys(draft.previousTime).length == 0) {
-          // previous time not set
-          //2021/5/10/17:14:12
-          draft.previousTime = incommingFormattedDate;
-        }
-        console.log(date[3]);
-        let hour; 
-        let minute; 
-        if(date[3].length !== 0){
-          hour = date[3].split(':')[0];
-          minute = date[3].split(':')[1];
-        }
+        draft.previousTime = incommingFormattedDate;
+        draft.topThreeTask = draft.tasksList.slice(0, 3)
 
-        const correctHour = (9 >= parseInt(hour, 10) && parseInt(hour, 10) >= 8);
-        const correctMinute = (59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 0);
-        console.log(correctHour);
-        console.log(correctMinute);
+        // let date = action.payload.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
+        // const incommingFormattedDate =
+        //   date[4] +
+        //   '/' +
+        //   monthStringToNUmber(date[1]) +
+        //   '/' +
+        //   date[2] +
+        //   '/' +
+        //   date[3];
+        // if (Object.keys(draft.previousTime).length == 0) {
+        //   previous time not set
+        //   2021/5/10/17:14:12
+        //   draft.previousTime = incommingFormattedDate;
+        // }
+        // console.log(date[3]);
+        // let hour; 
+        // let minute; 
+        // if(date[3].length !== 0){
+        //   hour = date[3].split(':')[0];
+        //   minute = date[3].split(':')[1];
+        // }
 
-          // split the date incomming and exisitng to remove the time values
-          let incommingSplit = incommingFormattedDate.split('/');
-          let existingSplit = draft.previousTime.split('/');
-          let yearMonthDatIncomming = incommingSplit[0] +  '/' + incommingSplit[1] + '/' + incommingSplit[2];
-          let yearMonthDatExisting = existingSplit[0] + '/' + existingSplit[1] + '/' + existingSplit[2];
+        // const correctHour = (9 >= parseInt(hour, 10) && parseInt(hour, 10) >= 8);
+        // const correctMinute = (59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 0);
+    
+
+        //   split the date incomming and exisitng to remove the time values
+        //   let incommingSplit = incommingFormattedDate.split('/');
+        //   let existingSplit = draft.previousTime.split('/');
+        //   let yearMonthDatIncomming = incommingSplit[0] +  '/' + incommingSplit[1] + '/' + incommingSplit[2];
+        //   let yearMonthDatExisting = existingSplit[0] + '/' + existingSplit[1] + '/' + existingSplit[2];
           
   
-        if (correctHour && correctMinute) {
-          // check if a day has passed 
-          if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1 || draft.topThreeTask.length == 0) {
-            // push the three tasks with highest priority to the topthreetask array
-            console.log('THE TIME IS NOW');
-            console.log(incommingFormattedDate);
-            console.log('---------------------------------');
-            draft.topThreeTask = draft.tasksList.slice(0, 3)
-          }
-        }
+        // if (correctHour && correctMinute) {
+        //   check if a day has passed 
+        //   if (difference(yearMonthDatExisting, yearMonthDatIncomming) >= 1 || draft.topThreeTask.length == 0) {
+        //     push the three tasks with highest priority to the topthreetask array
+        //     console.log('THE TIME IS NOW');
+        //     console.log(incommingFormattedDate);
+        //     console.log('---------------------------------');
+        //     draft.topThreeTask = draft.tasksList.slice(0, 3)
+        //   }
+        // }
         break;
 
       default:
