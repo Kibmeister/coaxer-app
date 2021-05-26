@@ -137,7 +137,6 @@ const tasksReducer = (state = initialState, action) => {
           }
         } else {
           draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
-          // console.log('Incomming task without duedate');
         }
         break;
       case SET_TASK_LIST:
@@ -154,7 +153,12 @@ const tasksReducer = (state = initialState, action) => {
             task.iterations -= 1;
           }
         });
-        draft.tasksList = arr.filter((task) => task.iterations > 0);
+        // console.log('After decrement')
+        // console.log(arr);
+        // console.log('After removed')
+        // console.log(arr.filter(task => task.iterations > 0))
+
+        draft.tasksList = arr.filter(task => task.iterations > 0);
         break;
 
       case SET_TOP_THREE:

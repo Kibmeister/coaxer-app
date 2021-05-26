@@ -141,6 +141,7 @@ playSounds = (time, topThree) => {
       });
       break;
     case 9:
+      // console.log('The time is 09');
       if (!soundPlayed[0].value) {
         // check if sound has been played at hour 10
         firstPriCategory == 'Leisure'
@@ -152,6 +153,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 10:
+      // console.log('The time is 10');
       if (!soundPlayed[1].value) {
         // check if sound has been played at hour 12
         secondPriCategory == 'Leisure'
@@ -163,6 +165,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 11:
+      // console.log('The time is 11');
       if (!soundPlayed[2].value) {
         // check if sound has been played at hour 14
         firstPriCategory == 'Leisure'
@@ -174,6 +177,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 12:
+      // console.log('The time is 12');
       if (!soundPlayed[3].value) {
         // check if sound has been played at hour 16
         secondPriCategory == 'Leisure'
@@ -185,6 +189,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 13:
+      // console.log('The time is 13');
       if (!soundPlayed[4].value) {
         // check if sound has been played at hour 18
         firstPriCategory == 'Leisure'
@@ -196,6 +201,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 14:
+      // console.log('The time is 14');
       if (!soundPlayed[5].value) {
         // check if sound has been played at hour 20
         thirdPriCategory == 'Leisure'
@@ -207,6 +213,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 15:
+      // console.log('The time is 15');
       if (!soundPlayed[6].value) {
         // check if sound has been played at hour 10
         firstPriCategory == 'Leisure'
@@ -218,6 +225,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 16:
+      // console.log('The time is 16');
       if (!soundPlayed[7].value) {
         // check if sound has been played at hour 12
         secondPriCategory == 'Leisure'
@@ -229,6 +237,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 17:
+      // console.log('The time is 17');
       if (!soundPlayed[8].value) {
         // check if sound has been played at hour 14
         firstPriCategory == 'Leisure'
@@ -240,6 +249,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 18:
+      // console.log('The time is 18');
       if (!soundPlayed[9].value) {
         // check if sound has been played at hour 16
         secondPriCategory == 'Leisure'
@@ -251,6 +261,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 19:
+      // console.log('The time is 19');
       if (!soundPlayed[10].value) {
         // check if sound has been played at hour 18
         firstPriCategory == 'Leisure'
@@ -262,6 +273,7 @@ playSounds = (time, topThree) => {
       }
       break;
     case 20:
+      // console.log('The time is 20');
       if (!soundPlayed[11].value) {
         // check if sound has been played at hour 20
         thirdPriCategory == 'Leisure'

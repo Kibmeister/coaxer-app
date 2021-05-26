@@ -19,8 +19,9 @@ function ModalIteration(props) {
     dispatch(shuffleModals(modalName));
     if(taskIteration == 0){
       props.iteration(1);
-    }
-    props.iteration(taskIteration);
+    } else {
+      props.iteration(taskIteration);
+    } 
   };
   return (
     <View style={styles.modalContainer}>
