@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import Colors from '../constants/colors';
+import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import colors from '../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { bottomBarActive } from '../redux/reducers/bottomBarReducer';
 
+// The bottom nav bar that is used in ProfileScreen and TasksScreen
 const BottomNav = ({ navigation }) => {
-  
 
   const selector = useSelector((state) => state.BottomBarR);
   const dispatch = useDispatch();
-
+//funciton that shuffles between the two screens
   const buttonClick = (tabname) => {
     if (tabname == 'Tasks') {
       dispatch(bottomBarActive(tabname));
@@ -22,6 +20,7 @@ const BottomNav = ({ navigation }) => {
     }
     
   };
+  // function that renders the bottom bar with the two navigation options
   return (
     <View style={styles.navContaier}>
       <View style={styles.task}>
@@ -63,12 +62,12 @@ const BottomNav = ({ navigation }) => {
     </View>
   );
 };
-
+// styling for the containers
 const styles = StyleSheet.create({
   navContaier: {
     width: '100%',
     height: '7%',
-    backgroundColor: Colors.bottomNav,
+    backgroundColor: '#f2f2f2',
     justifyContent: 'center',
     flexDirection: 'row',
   },
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     borderRightWidth: 2,
-    borderColor: Colors.fine,
+    borderColor: '#BABABA',
   },
   taskButton: {
     width: '100%',

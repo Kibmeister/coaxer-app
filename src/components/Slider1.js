@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
-
+//slider component that houses an imported slider - rendered in ModalIterations
 const Slider1 = (props) => {
+  // state variable for slider value
   const [sliderValue, setSliderValue] = useState(1);
-
+ // passes slider value to parrent component
   const setIterationNumber = (value) => {
     props.iteration(value);
   };
 
   return (
     <View style={styles.sliderContainer}>
+      {/* slider which has a minimum value of 1, goes to 5 */}
       <Slider
         style={{ width: 200, height: 30}}
         step={1}
@@ -29,12 +31,11 @@ const Slider1 = (props) => {
     </View>
   );
 };
-
+// styling for the containers
 const styles = StyleSheet.create({
   sliderContainer: {
     paddingTop: '5%',
     alignItems: 'center',
-    //backgroundColor: 'purple',
   },
   valueContainer: {
     alignItems: 'center',

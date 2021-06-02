@@ -10,11 +10,12 @@ import ModalDescription from './ModalDescription';
 import ModalIterations from './ModalIterations';
 import ModalDuedate from './ModalDuedate';
 import ModalConfirmation from './ModalConfirmation';
-
+//Main modal that houses all the other modals used for creating the task
 function Modal({ navigation }) {
+  //retreive the active state of the modals
   const activeModals = useSelector((state) => state.ShuffleModalR.activeModals);
   const dispatch = useDispatch();
-
+  //state variables for each of the prameters that constitute a task 
   const [taskDesctiption, setTaskDescription] = useState('');
   const [taskCategory, setTaskCategory] = useState('');
   const [taskIteration, setTaskIteration] = useState('');
@@ -22,13 +23,14 @@ function Modal({ navigation }) {
   const [taskDateF, setTaskDateF] = useState(''); //only to dipslay the date in the right order for modalconfirmation
   const [taskDateCond, setTaskCond] = useState(false);
 
+  //check funciton for setting the duedate for a task
   const setDueDate = (value) => {
     setTaskDate(value);
     if (value.length == 9) {
       setTaskCond(true);
     }
   };
-
+// function that dispatches the task with all variables to store
   const onSaveNote = () => {
     dispatch(
       addItem({
@@ -40,15 +42,17 @@ function Modal({ navigation }) {
           date: taskDate,
         },
         id: Math.random(),
-        key: '',
+        key: '', // superficial key parmeter that would been used for key if the tasks werer added on a webserver
       })
     );
   };
+  //dispatched reset modal action to state to reset the order of the modals shown
   const exitModal = () => {
     navigation.navigate('Tasks');
     dispatch(resetModal());
   };
-
+//Redner function that only shows one modal at a time depending on which are set to active
+// from each the modals it retreives the input value the user has entered and adds it to the states variables
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -110,7 +114,7 @@ function Modal({ navigation }) {
     </View>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   container: {
     flex: 1,

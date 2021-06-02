@@ -4,16 +4,17 @@ import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
 import CategoryButtons from '../../components/CategoryButtons';
-
+// Modal for the category inupt 
 function ModalCategory(props) {
   const [category, setTaskCategory] = useState('Practical');
 
   const dispatch = useDispatch();
-
+  //toggles the modal by dispatching its name to the store
   const toggleScreen = (modalName) => {
     props.category(category);
     dispatch(shuffleModals(modalName));
   };
+  // function that renders the category modal as well as the CategoryButtons component that houses the category buttons
   return (
     <View style={styles.modalContainer}>
       <Text style={{ color: '#444', fontSize: 20, fontWeight: 'bold' }}>
@@ -21,6 +22,7 @@ function ModalCategory(props) {
       </Text>
 
       <View style={styles.categoryButtonContainer}>
+        {/* separate component for the category buttons */}
         <CategoryButtons
           category={(value) => {
             setTaskCategory(value);
@@ -57,13 +59,14 @@ function ModalCategory(props) {
           bottom: 10,
         }}
       >
+        {/* shows the inputted values on the screen to the user to better aid confindence and overview when creating the task */}
         <Text style={{ fontSize: 16 }}> {props.description}</Text>
         <Text style={{ fontSize: 16, color:'lightgrey'}}>, {category}</Text>
       </View>
     </View>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   modalContainer: {
     flexDirection: 'column',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Colors from '../constants/colors';
 
+// component that rendres the log in button in Welcome screen
 const LoginButton = (props) => {
   return (
     <TouchableOpacity
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   appButtonContainer: {
     marginTop: 120,
     elevation: 8,
-    backgroundColor: Colors.accent,
+    backgroundColor: '#47b3e6',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 45,

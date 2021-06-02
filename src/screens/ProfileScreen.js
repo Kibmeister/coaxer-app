@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import ProfileView from '../components/ProfileView';
 import BottomNav from '../screens/BottomNav';
 
-
+//This screen diplays the profileview component, header and bottomnavbar
 const ScreenProfile = ({navigation}) => {
   return (
     <>
@@ -18,6 +18,7 @@ const ScreenProfile = ({navigation}) => {
   </>
   );
 };
+// styling for the containers
 const styles = StyleSheet.create({
   container: {
     flex: 1,

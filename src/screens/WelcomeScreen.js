@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
-import Colors from '../constants/colors';
 import LoginButton from '../components/LoginButton';
 
-
+//This screen diplays the welcome page with a log in button in lower end of the screen
 const WelcomeScreen = ({navigation}) => {
   return (
     <View style={styles.screen}>
@@ -22,12 +21,12 @@ const WelcomeScreen = ({navigation}) => {
     </View>
   );
 };
-
+// styling for the containers
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    backgroundColor: '#fff',
 
   },
   welcomePromt: {

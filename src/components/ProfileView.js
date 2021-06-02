@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
-
+// this is the view that is rendered in ProfileScreen
 const ProfileView = () => {
   return (
     <View
@@ -13,6 +13,7 @@ const ProfileView = () => {
         alignItems: 'center',
       }}
     >
+      {/* button for syncing with google calendar 'acording to concept' */}
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity style={styles.buttonContainer}>
           <Text>Sync with google calendar</Text>
@@ -24,6 +25,7 @@ const ProfileView = () => {
     </View>
   );
 };
+// styling for the containers
 const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 120,

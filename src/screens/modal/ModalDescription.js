@@ -9,16 +9,17 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { shuffleModals } from '../../redux/reducers/shuffleModalReducer';
-
+// Modal for the description input
 function ModalDescription(props) {
   const [value, setValue] = useState('');
 
   const dispatch = useDispatch();
-
+//toggles the modal by dispatching its name to the store
   const toggleScreen = (modalName) => {
     props.description(value);
     dispatch(shuffleModals(modalName));
   };
+  // function that renders the input field for task description
   return (
     <View style={styles.modalContainer}>
       <Text style={{ color: '#444', fontSize: 20, fontWeight: 'bold'}}>
@@ -48,7 +49,7 @@ function ModalDescription(props) {
     </View>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   modalContainer: {
     flexDirection: 'column',

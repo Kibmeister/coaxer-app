@@ -5,31 +5,35 @@ export const SET_TASK_LIST = 'SET_TASK_LIST';
 export const DECREMENT_ITERATIONS = 'DECREMENT_ITERATIONS';
 export const SET_TOP_THREE = 'SET_TOP_THREE';
 
+//ACTIONS
+// Adding a new task
 export const addItem = (item) => ({
   type: ADD_ITEM,
   payload: item,
 });
-
+//After a task has been dragged, the stores version of the list has to be the same as what is rendered
 export const setTaskList = (list) => ({
   type: SET_TASK_LIST,
   payload: list,
 });
+//when a task is pressed and its counter is decremented
 export const decrementIterations = (id) => ({
   type: DECREMENT_ITERATIONS,
   payload: id,
 });
-
+//sets the top three tasks to its own sub-state in store since these are the ones used for sonification
 export const setTopThree = (time) => ({
   type: SET_TOP_THREE,
   payload: time,
 });
-
+//main state of store that holds all the taks that are rendered, the top three tasks with the highes priority
+// - as welll as a time state for when tasks are submitted 
 const initialState = {
   tasksList: [],
   topThreeTask: [],
   previousTime: {},
 };
-
+// function that measured the date different between two dates
 function difference(date1, date2) {
   const date1new = new Date(date1);
   const date2new = new Date(date2);
@@ -48,6 +52,7 @@ function difference(date1, date2) {
   const day = 1000 * 60 * 60 * 24;
   return (date2utc - date1utc) / day;
 }
+// function that converts month number to string
 const monthStringToNUmber = (month) => {
   let stringToNumber = 0;
   if (month == 'Jan') {
@@ -77,7 +82,7 @@ const monthStringToNUmber = (month) => {
   }
   return stringToNumber;
 };
-
+//date variable used as of todys date to compare to the date of the submitted tasks
 var d = new Date();
 const mdate = d.toString().split(' ');
 const formattedDate =
@@ -87,27 +92,25 @@ const tasksReducer = (state = initialState, action) => {
   let task = action.payload;
   return produce(state, (draft) => {
     switch (action.type) {
+      // reducer for adding a task 
       case ADD_ITEM:
-        // console.log('DETTE ER ACTION TYPE : ' + action.type);
+        // if a task has a due date its index in the list has to be calcaulted based on its urgency compared to the other tasks
         if (task.duedate.cond) {
-          // there is a duedate for the event
           if (draft.tasksList.length == 0) {
-            // the list is empty
             draft.tasksList.push(action.payload);
-            // console.log('Incomming task List empty');
           } else {
             let dueDate = difference(formattedDate, task.duedate.date);
             let validDate = dueDate >= 0 ? true : false;
             let loopRan = false;
 
             draft.tasksList.forEach((t, i) => {
-              // console.log('For each kjører');
-              // sjeke at tasken i arrayet har en duedate før difference funksjonen kjører
+              // loops through the list at checks if the other tasks has a due date
               let dueDateI = '';
               let lastTaskDate = '';
               if (t.duedate.cond) {
                 dueDateI = difference(formattedDate, t.duedate.date);
               }
+              //checks the date differnece between the current date and the date of the last task in the array
               if (draft.tasksList[draft.tasksList.length - 1].duedate.cond) {
                 lastTaskDate = difference(
                   formattedDate,
@@ -115,10 +118,6 @@ const tasksReducer = (state = initialState, action) => {
                 );
               }
 
-              //finne duedate til siste task i arrayet
-              // console.log('Duedate :' + dueDate);
-              // console.log('DuedateI :' + dueDateI);
-              // console.log('Last task date :' + lastTaskDate);
 
               if (dueDate < dueDateI && validDate && !loopRan) {
                 // incomming task is most urgent
@@ -126,19 +125,18 @@ const tasksReducer = (state = initialState, action) => {
                 newArray.splice(i, 0, task);
                 draft.taskList = newArray;
                 loopRan = true;
-                // console.log('Incomming task is more urgent');
               } else if (lastTaskDate < dueDate && validDate && !loopRan) {
                 // incomming task is less urgen than the least urgent task in list
                 draft.tasksList.push(task);
                 loopRan = true;
-                // console.log('Incomming task is LESS urgent');
               }
             });
           }
-        } else {
-          draft.tasksList.push(task); // hvis det ikke er satt en duedat for tasken
+        }  else {
+          draft.tasksList.push(task); // add the task to the end of the list if it does not have a due date
         }
         break;
+      // reducer that updates the task state to what is being rendered 
       case SET_TASK_LIST:
         let newArray = action.payload;
         if (newArray.length !== 0) {
@@ -146,6 +144,7 @@ const tasksReducer = (state = initialState, action) => {
         }
 
         break;
+      // reducer that decrements the iteration count to the task that is pressed
       case DECREMENT_ITERATIONS:
         let arr = draft.tasksList;
         arr.forEach((task) => {
@@ -160,10 +159,10 @@ const tasksReducer = (state = initialState, action) => {
 
         draft.tasksList = arr.filter(task => task.iterations > 0);
         break;
-
+      // reducer for setting the top three tasks with the highest priority ready for sonification 
       case SET_TOP_THREE:
 
-        let date = action.payload.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK
+        let date = action.payload.toString().split(' '); // THIS OBJECT IS NOT THE CORRECT TYPE ON IOS, THUS THE BELOW FN DOES NOT WORK  IN IOS
         const incommingFormattedDate =
           date[4] +
           '/' +
@@ -183,10 +182,10 @@ const tasksReducer = (state = initialState, action) => {
           hour = date[3].split(':')[0];
           minute = date[3].split(':')[1];
         }
-
+        // the valid timespan for when the top three tasks are set 
         const correctHour = 23 >= parseInt(hour, 10) && parseInt(hour, 10) >= 8;
         const correctMinute = 59 >= parseInt(minute, 10) && parseInt(minute, 10) >= 0;
-
+        // set the top three tasks of taskslist to the topthreeTasks list to  prepare them for sonificaiton
         if (correctHour && correctMinute) {
           draft.topThreeTask = draft.tasksList.slice(0, 3);
         }

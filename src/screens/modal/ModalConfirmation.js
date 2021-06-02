@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useDispatch } from 'react-redux';
 
+// Modal for the confimation, shows the task that has been created
 function ModalConfirmation(props) {
   return (
     <View style={styles.modalContainer}>
@@ -35,6 +35,7 @@ function ModalConfirmation(props) {
         }}
         onPress={props.exitModal}
       >
+        {/* displays the value for the task created */}
         <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
           {props.description}, {props.category}, {props.iteration},{' '}
           {props.duedate}
@@ -43,7 +44,7 @@ function ModalConfirmation(props) {
     </View>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   modalContainer: {
     flexDirection: 'column',

@@ -3,16 +3,19 @@ import produce from 'immer';
 export const SHUFFLE_MODAL = 'SHUFFLE_MODAL';
 export const RESET_MODAL = 'RESET_MODAL';
 
+//ACTIONS
+//action determines what modal is visible during task creation
 export const shuffleModals = (modalName) => ({
   type: SHUFFLE_MODAL,
   payload: modalName,
 });
-
+// action for resetting all the tasks to initial state
 export const resetModal = () => ({
   type: RESET_MODAL,
   payload: '',
 });
 
+// one of the sub-states to store, governs the state of the modal views
 const initialState = {
   activeModals: {
     description: { active: true },
@@ -22,7 +25,7 @@ const initialState = {
     confirmation: { active: false },
   },
 };
-
+//REDUCER - manipulates state to what modal that should be active
 const shuffleModalReducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -9,28 +9,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setTaskList, decrementIterations } from '../redux/reducers/tasksReducer';
 import { Ionicons } from '@expo/vector-icons';
 import DraggableFlatList from 'react-native-draggable-flatlist';
-
+// component that renders the taks list in TasksScreen 
 function ListView() {
-  const listItems = useSelector((state) => state.TasksR.tasksList);
+  const listItems = useSelector((state) => state.TasksR.tasksList); // retrive tasks
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //user for dispatching tasks to the store.
 
+  //fuction that handle the tasks once one taks has been dragged up or down in the list 
   const dragComplete = (item) => {
     const { from: sourceIndex, to: targetIndex, data: dragList } = item;
 
     const dragItem = dragList[sourceIndex]; // swapList[sourceIndex];
     const swapItem = dragList[targetIndex]; // swapList[targetIndex];
 
-
+    //swaps the dragged task with the task at its dragged to position, in order for the store to receive the tasks
+    // - in the updated order after drag. 
     dragList.forEach((task, i) => {
       if ((i = targetIndex)) {
         dragList.splice(targetIndex, 1, swapItem);
       }
     });
 
-    dispatch(setTaskList(dragList));
+    dispatch(setTaskList(dragList));// dispatches the newly updated list to redux store.
   };
-
+// function that is used to re create the task retrieved form redux store
+// this adds underline color the taks based on its category and assignes the index as key.
   const taskListOrdered = listItems.map((task, index) => {
     const container = {};
     const duedateObject = {};
@@ -50,7 +53,7 @@ function ListView() {
         : 'blue';
     return container;
   });
-
+// function for rendering the items in draggableflatlist 
   const renderItem = ({ item, drag, isActive }) => (
     <View
       style={{
@@ -67,6 +70,7 @@ function ListView() {
     >
       <View style={styles.listItemMetaContainer}>
         <TouchableOpacity
+        //dispatches the id of tasks being pressed to decrement itreation count
         onPress={() => dispatch(decrementIterations(item.id))}
           style={{
             width: 240,
@@ -88,14 +92,15 @@ function ListView() {
           </View>
 
         <View style={styles.dragButton}>
-          <TouchableOpacity onLongPress={drag}>
+        {/* when longpressing the drag icon of a task the drag function is initiated  */}
+          <TouchableOpacity onLongPress={drag}> 
             <Ionicons name='ios-menu' color='grey' size={40} />
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
-
+// renders the list if its not empty 
   return (
     <View
       style={{
@@ -119,23 +124,26 @@ function ListView() {
             </View>
           </View>
           <View style={styles.flatListView}>
+            {/* deploys the draggable flatlist from the imported package */}
             <DraggableFlatList
               data={taskListOrdered}
               renderItem={renderItem}
               keyExtractor={(item) => `draggable-item-${item.key}`}
-              onDragEnd={(item) => dragComplete(item)}
+              //passes the dragged item to dragComplete function with indexes of move from - move to
+              onDragEnd={(item) => dragComplete(item)} 
             />
           </View>
         </View>
       ) : (
-        <Text style={{ fontSize: 30, textAlign: 'center' }}>
+        //displayed text if the list is empty 
+        <Text style={{ fontSize: 30, textAlign: 'center' }}> 
           Let's fill this badboy up :'(
         </Text>
       )}
     </View>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   flatListContainer: {
     height: '85%',

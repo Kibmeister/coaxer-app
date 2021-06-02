@@ -11,7 +11,7 @@ import Header from '../components/Header';
 import ListView from '../components/ListView';
 import BottomNav from './BottomNav';
 
-
+//This screen diplays the Listview component, header and bottomnavbar
 function TasksScreen({ navigation }) {
   return (
     <>
@@ -21,6 +21,7 @@ function TasksScreen({ navigation }) {
         <ListView /> 
         <View style={styles.fabContainer}>
           <TouchableOpacity
+          //button that initiates the modals for adding a task 
             onPress={() => navigation.navigate('ModalDescription' )}
             style={styles.fabButton}
           >
@@ -32,7 +33,7 @@ function TasksScreen({ navigation }) {
     </>
   );
 }
-
+// styling for the containers
 const styles = StyleSheet.create({
   container: {
     flex: 1,

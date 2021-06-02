@@ -3,11 +3,13 @@ import { View, StyleSheet, Text } from 'react-native';
 import DueDateButtons from './DueDateButtons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
+// component that renders and handles date time picker event in the  Modalduedate picker
 const DueDatePicker = (props) => {
+  // state variabels for showing the date time picker and the value set
   const [isDateTimePickerVisible, setDatePickerVisibility] = useState(false);
   const [chosenDate, setChoseDate] = useState('');
  
-
+// setter funtions for the above states
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -15,7 +17,7 @@ const DueDatePicker = (props) => {
     setDatePickerVisibility(false);
     setChoseDate('');
   };
-
+// converts a month number into string value
   const monthStringToNUmber = (month) => {
     let stringToNumber = 0;
     if(month == 'Jan'){
@@ -45,7 +47,9 @@ const DueDatePicker = (props) => {
     }
     return stringToNumber;
   }
-
+// function that handles the choosen date
+//the displayed date is in format : 10/June/2021
+// date passed to the store is: 10/05/2021
   const handleConfirm = (date) => {
     const mdate = date.toString().split(' ');
     setDatePickerVisibility(false);
@@ -56,10 +60,11 @@ const DueDatePicker = (props) => {
     if(date.length == 0){
       formatedDate = '';
     }
-    setChoseDate(formatedDate2);
-    props.date(formatedDate, formatedDate2);
+    setChoseDate(formatedDate2); // set the the date state 
+    props.date(formatedDate, formatedDate2);// passes the dates as props to parrent componet
 
   };
+  // renders the date time picker in parrent coponent together selection buttons
   return (
     <View style={styles.container}>
       <DateTimePicker
@@ -72,6 +77,7 @@ const DueDatePicker = (props) => {
     </View>
   );
 };
+// styling for the containers
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
